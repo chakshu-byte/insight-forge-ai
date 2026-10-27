@@ -1,0 +1,458 @@
+/* ------------------------------------------------------------------ */
+/* Forge continuation — landing design language, applied to the       */
+/* dashboard. Copied in spirit and in values from                     */
+/* InsightForge-Landing-REFINED.html (landing.css), NOT a new look.  */
+/*                                                                    */
+/* Palette:  #08090C #191C22 #9299A5 #D8DCE3 #F5F6F8                  */
+/* Fonts:    Instrument Serif (headings) / Inter Tight (body) /       */
+/*           JetBrains Mono (labels)                                  */
+/* Motion:   cubic-bezier(.2,.8,.2,1) everywhere, 90ms stagger,       */
+/*           0.9s reveals, 0.7s button shine, 6s float, 45s marquee.   */
+/*                                                                    */
+/* This file changes only presentation. No data, API, or feature      */
+/* logic lives here. Semantic risk colours are kept.                  */
+/* ------------------------------------------------------------------ */
+
+/* Theme variables, mirroring landing :root. Light is default, dark
+   follows the App theme class on the root div. */
+.forge-light {
+  --bg: #F5F6F8; --cd: #fff; --ln: #D8DCE3; --tx: #2A2F38; --hd: #08090C;
+  --mu: #555C68; --bt: #08090C; --bo: #F5F6F8; --gl: rgba(8, 9, 12, .07);
+  --sd: rgba(8, 9, 12, .18);
+}
+.forge-dark {
+  --bg: #08090C; --cd: #191C22; --ln: #2A2E36; --tx: #D8DCE3; --hd: #F5F6F8;
+  --mu: #9299A5; --bt: #F5F6F8; --bo: #08090C; --gl: rgba(216, 220, 227, .12);
+  --sd: rgba(0, 0, 0, .6);
+}
+
+/* --- Dashboard shell: grid + spotlight, like landing .gb / .hero::before --- */
+.forge-dashboard {
+  position: relative;
+}
+.forge-dashboard::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(620px circle at var(--cx, 70%) var(--cy, 25%), var(--gl), transparent 60%);
+  pointer-events: none;
+}
+.forge-grid {
+  position: absolute; inset: 0; opacity: .4; pointer-events: none;
+  background-image: linear-gradient(var(--ln) 1px, transparent 1px), linear-gradient(90deg, var(--ln) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse at 50% 30%, #000 15%, transparent 70%);
+  mask-image: radial-gradient(ellipse at 50% 30%, #000 15%, transparent 70%);
+}
+.forge-dashboard canvas { opacity: .35 !important; }
+.forge-dashboard .scanline-effect { display: none; }
+
+/* --- Headings: landing h2 language (serif, gradient, -0.02em) --- */
+.forge-dashboard h2:not(.forge-plain) {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+.forge-title {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  background: linear-gradient(180deg, var(--hd) 40%, var(--mu));
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.forge-label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--mu);
+}
+
+/* --- Reveal: landing .rv, 0.9s, blur, 90ms stagger --- */
+.forge-reveal {
+  opacity: 0; transform: translateY(28px); filter: blur(6px);
+  transition: opacity .9s cubic-bezier(.2, .8, .2, 1), transform .9s cubic-bezier(.2, .8, .2, 1), filter .9s;
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+.forge-reveal.in { opacity: 1; transform: none; filter: none; }
+
+/* --- Cards: landing .bc — 22px, 1px line, lift + cursor glow --- */
+.forge-card {
+  position: relative; overflow: hidden;
+  border: 1px solid var(--ln); border-radius: 22px; background: var(--cd);
+  transition: border-color .3s, transform .4s cubic-bezier(.2, .8, .2, 1);
+}
+.forge-card::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(380px circle at var(--mx, 50%) var(--my, 0%), var(--gl), transparent 60%);
+  opacity: 0; transition: opacity .3s; pointer-events: none;
+}
+.forge-card:hover { border-color: var(--mu); transform: translateY(-4px); }
+.forge-card:hover::before { opacity: 1; }
+.forge-card > * { position: relative; }
+
+/* --- Buttons: landing .btn — pill, shine sweep, arrow slide --- */
+.forge-btn {
+  position: relative; overflow: hidden;
+  display: inline-flex; align-items: center; gap: 12px;
+  height: 48px; padding: 0 7px 0 22px; border: 0; border-radius: 999px;
+  background: var(--bt); color: var(--bo);
+  font-weight: 600; font-size: 15px; text-decoration: none; cursor: pointer;
+  transition: transform .3s, box-shadow .3s;
+}
+.forge-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 40px var(--sd); }
+.forge-btn::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, .5) 50%, transparent 70%);
+  transform: translateX(-120%); transition: transform .7s; pointer-events: none;
+}
+.forge-btn:hover::after { transform: translateX(120%); }
+.forge-btn .forge-btn-arrow {
+  display: grid; place-items: center;
+  width: 34px; height: 34px; border-radius: 50%;
+  background: var(--bo); color: var(--bt); overflow: hidden; flex: none;
+}
+.forge-btn:hover .forge-btn-arrow svg { animation: forge-ex .5s; }
+.forge-btn-ghost {
+  padding: 0 24px; background: none; color: var(--hd);
+  border: 1px solid var(--ln);
+}
+.forge-btn-ghost::after { display: none; }
+.forge-btn-ghost:hover { border-color: var(--mu); box-shadow: none; }
+@keyframes forge-ex {
+  45% { transform: translateX(26px); opacity: 0; }
+  46% { transform: translateX(-26px); opacity: 0; }
+}
+/* Small dashboard buttons keep the same language, compact size. */
+.forge-btn-sm {
+  height: 36px; padding: 0 6px 0 16px; font-size: 13px; gap: 8px;
+}
+.forge-btn-sm .forge-btn-arrow { width: 26px; height: 26px; }
+
+/* --- Header nav: landing .nav — blur 16px, border only on scroll --- */
+.forge-nav {
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  background: color-mix(in srgb, var(--bg) 70%, transparent);
+  border-bottom: 1px solid transparent;
+  transition: border-color .3s, padding .3s, background .3s;
+}
+.forge-nav.scrolled { border-bottom-color: var(--ln); }
+
+/* --- Marquee: landing .mq/.mt — 45s, pause on hover, ◆ separators --- */
+.forge-marquee {
+  overflow: hidden; padding: 18px 0; border-block: 1px solid var(--ln);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.forge-marquee-track {
+  display: flex; gap: 48px; width: max-content;
+  animation: forge-mq 45s linear infinite;
+}
+.forge-marquee:hover .forge-marquee-track { animation-play-state: paused; }
+.forge-marquee-track span { white-space: nowrap; }
+.forge-marquee-track span::after { content: "◆"; margin-left: 48px; opacity: .4; }
+@keyframes forge-mq { to { transform: translateX(-50%); } }
+
+/* --- Tilt panel: landing .pf/.tilt/.panel — perspective, shadow, shine --- */
+.forge-tilt-wrap { perspective: 1400px; }
+.forge-tilt {
+  position: relative; transform-style: preserve-3d;
+  transform: rotateX(8deg) rotateY(-14deg);
+}
+.forge-panel {
+  position: relative; overflow: hidden;
+  padding: 18px; border: 1px solid var(--ln); border-radius: 22px;
+  background: linear-gradient(160deg, var(--cd), color-mix(in srgb, var(--cd) 60%, var(--bg)));
+  box-shadow: 0 50px 90px var(--sd), inset 0 1px 0 rgba(255, 255, 255, .08);
+  transform-style: preserve-3d;
+}
+.forge-panel::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 40%, rgba(255, 255, 255, .08) 50%, transparent 60%);
+  background-size: 250% 100%; animation: forge-sh2 7s ease-in-out infinite; pointer-events: none;
+}
+@keyframes forge-sh2 {
+  0%, 60% { background-position: 150% 0; }
+  100% { background-position: -150% 0; }
+}
+.forge-float {
+  animation: forge-fy 6s ease-in-out infinite;
+}
+@keyframes forge-fy { 50% { transform: translateY(-10px); } }
+
+/* --- CTA: landing .cta — rotating conic border, radial overlay --- */
+.forge-cta {
+  position: relative; overflow: hidden;
+  padding: 120px 24px; border: 1px solid var(--ln); border-radius: 32px;
+  background: var(--cd); text-align: center;
+}
+.forge-cta::before {
+  content: ""; position: absolute; inset: -60%;
+  background: conic-gradient(from 0deg, transparent, var(--mu), transparent 30%);
+  animation: forge-rot 10s linear infinite;
+}
+.forge-cta::after {
+  content: ""; position: absolute; inset: 1px; border-radius: 31px;
+  background: radial-gradient(520px at 50% 0, var(--gl), var(--cd) 70%);
+}
+.forge-cta > * { position: relative; z-index: 1; }
+@keyframes forge-rot { to { transform: rotate(360deg); } }
+
+/* --- Dashboard generic polish, same language --- */
+.forge-dashboard button {
+  transition: transform .3s, box-shadow .3s, border-color .3s, background-color .3s;
+}
+.forge-dashboard button:hover {
+  transform: translateY(-1px);
+}
+.forge-dashboard button:active { transform: translateY(0); }
+.forge-dashboard section {
+  scroll-margin-top: 96px;
+}
+
+/* Reduced motion: landing rule, verbatim in effect. */
+@media (prefers-reduced-motion: reduce) {
+  .forge-reveal, .forge-marquee-track, .forge-panel::after, .forge-cta::before, .forge-float {
+    animation: none !important; transition: none !important;
+  }
+  .forge-reveal { opacity: 1 !important; transform: none !important; filter: none !important; }
+}
+
+/* ------------------------------------------------------------------ */
+/* Banger layer — same landing language, turned up. No new colours,   */
+/* no new fonts, no logic. All animations respect reduced motion.     */
+/* ------------------------------------------------------------------ */
+
+/* Aurora orbs: slow platinum drift behind the dashboard, very low opacity. */
+.forge-aurora { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.forge-aurora i {
+  position: absolute; border-radius: 50%; filter: blur(90px); opacity: .28;
+  background: radial-gradient(circle, var(--mu), transparent 70%);
+  animation: forge-aurora-float 18s ease-in-out infinite alternate;
+}
+.forge-aurora i:nth-child(1) { width: 520px; height: 520px; top: -160px; left: -120px; }
+.forge-aurora i:nth-child(2) { width: 420px; height: 420px; top: 20%; right: -140px; animation-duration: 24s; animation-delay: -6s; }
+.forge-aurora i:nth-child(3) { width: 360px; height: 360px; bottom: -140px; left: 38%; animation-duration: 21s; animation-delay: -12s; }
+@keyframes forge-aurora-float {
+  from { transform: translate(0, 0) scale(1); }
+  to { transform: translate(40px, 30px) scale(1.12); }
+}
+
+/* Shimmer headline: landing h1 em, applied to dashboard hero titles. */
+.forge-shimmer {
+  font-style: italic; padding-right: .08em;
+  background: linear-gradient(100deg, var(--mu) 30%, var(--hd) 50%, var(--mu) 70%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: forge-shimmer 6s linear infinite;
+}
+@keyframes forge-shimmer { to { background-position: -250% 0; } }
+
+/* Page transition: landing -> dashboard fades, rises, unblurs. */
+.forge-page-enter { animation: forge-page-in .9s cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes forge-page-in {
+  from { opacity: 0; transform: translateY(28px); filter: blur(8px); }
+  to { opacity: 1; transform: none; filter: none; }
+}
+
+/* Risk ring: SVG circle, stroke animates to the risk value. */
+.forge-ring { transform: rotate(-90deg); }
+.forge-ring circle { transition: stroke-dashoffset 1.4s cubic-bezier(.2, .8, .2, 1); }
+
+/* Animated bars: width eases, like landing bento bars. */
+.forge-bar { height: 8px; border-radius: 999px; background: var(--ln); overflow: hidden; }
+.forge-bar i {
+  display: block; height: 100%; border-radius: 999px;
+  background: linear-gradient(90deg, var(--hd), var(--mu));
+  transition: width 1s cubic-bezier(.2, .8, .2, 1);
+}
+
+/* Tables: row hover lift + platinum wash, header mono labels. */
+.forge-dashboard table tbody tr { transition: background-color .3s, transform .3s; }
+.forge-dashboard table tbody tr:hover { background: var(--gl); }
+.forge-dashboard table th {
+  font-family: "JetBrains Mono", monospace; font-size: 11px;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--mu);
+}
+
+/* Inputs: range sliders in Obsidian/Platinum, not browser default. */
+.forge-dashboard input[type="range"] { accent-color: var(--hd); cursor: pointer; }
+.forge-dashboard input[type="text"], .forge-dashboard input[type="number"], .forge-dashboard select, .forge-dashboard textarea {
+  background: var(--cd); border: 1px solid var(--ln); border-radius: 14px; color: var(--tx);
+  transition: border-color .3s, box-shadow .3s;
+}
+.forge-dashboard input:focus-visible, .forge-dashboard select:focus-visible, .forge-dashboard textarea:focus-visible {
+  outline: 2px solid var(--hd); outline-offset: 2px; border-color: var(--mu);
+}
+
+/* Skeleton loading: shimmer card, landing panel language. */
+.forge-skeleton {
+  border: 1px solid var(--ln); border-radius: 22px; background: var(--cd);
+  padding: 20px; overflow: hidden; position: relative;
+}
+.forge-skeleton::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(110deg, transparent 30%, var(--gl) 50%, transparent 70%);
+  background-size: 250% 100%; animation: forge-shimmer 2s linear infinite;
+}
+
+/* Progress bar: landing gradient, Obsidian -> Platinum -> Obsidian. */
+.forge-dashboard .bg-gradient-to-r {
+  background-image: linear-gradient(to right, var(--hd), var(--mu), var(--hd)) !important;
+}
+
+/* Live pulse dot: for Live simulation / failure flagged. */
+.forge-pulse { position: relative; }
+.forge-pulse::before {
+  content: ""; position: absolute; inset: -4px; border-radius: 50%;
+  border: 1px solid var(--mu); opacity: .6; animation: forge-pulse-ring 2s ease-out infinite;
+}
+@keyframes forge-pulse-ring {
+  from { transform: scale(.8); opacity: .6; }
+  to { transform: scale(1.8); opacity: 0; }
+}
+
+/* Hero strip: landing hero, compact, for the top of the dashboard. */
+.forge-hero {
+  position: relative; overflow: hidden;
+  padding: 48px 24px 32px; border: 1px solid var(--ln); border-radius: 32px;
+  background: linear-gradient(160deg, var(--cd), color-mix(in srgb, var(--cd) 60%, var(--bg)));
+  box-shadow: 0 50px 90px var(--sd), inset 0 1px 0 rgba(255, 255, 255, .08);
+}
+.forge-hero::before {
+  content: ""; position: absolute; inset: 0;
+  background: radial-gradient(620px circle at var(--cx, 70%) var(--cy, 25%), var(--gl), transparent 60%);
+  pointer-events: none;
+}
+.forge-hero > * { position: relative; }
+
+@media (prefers-reduced-motion: reduce) {
+  .forge-aurora i, .forge-shimmer, .forge-skeleton::after, .forge-pulse::before, .forge-page-enter {
+    animation: none !important;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Readability + de-robo layer — ONLY these changes, nothing else.   */
+/* Dashboard only (.forge-dashboard). Landing is untouched: it is     */
+/* injected separately and does not carry .forge-dashboard.           */
+/* ------------------------------------------------------------------ */
+
+/* De-robo: Tailwind .font-mono in the dashboard becomes Inter Tight,
+   the human sans. Tiny eyebrow labels (.forge-label, landing .m) keep
+   JetBrains Mono on purpose — they are labels, not body copy. */
+.forge-dashboard .font-mono {
+  font-family: "Inter Tight", system-ui, sans-serif !important;
+  letter-spacing: normal !important;
+}
+/* Header nav + controls, Command Center, and every section below:
+   same rule, so CAD Twin / Telemetry HUD / etc. are no longer mono. */
+
+/* Font-size floor: Tailwind's tiny sizes were 10–12px everywhere
+   (twin, simulator sliders, RUL band, header pills, Command Center).
+   Bump them, without touching base (16px), lg, xl, or hero sizes. */
+.forge-dashboard .text-xs {
+  font-size: 0.875rem !important; /* 12px -> 14px */
+  line-height: 1.5 !important;
+}
+.forge-dashboard .text-\[10px\] {
+  font-size: 0.75rem !important; /* 10px -> 12px, labels/badges only */
+  line-height: 1.4 !important;
+}
+.forge-dashboard .text-\[11px\] {
+  font-size: 0.8125rem !important; /* 11px -> 13px */
+  line-height: 1.5 !important;
+}
+.forge-dashboard .text-sm {
+  font-size: 1rem !important; /* 14px -> 16px */
+  line-height: 1.5 !important;
+}
+/* Command Center stat numbers stay large; its labels were 10px, now 12px
+   via the rule above, and its body copy was 12px, now 14px. */
+/* Twin / simulator footnotes and RUL explainer were 10–11px, now 12–13px,
+   with the same line-height as body copy, so they are readable at a glance. */
+
+/* Subtle tilt base: the panel starts almost flat, not 8/-14deg. */
+.forge-tilt { transform: rotateX(2deg) rotateY(-3deg); }
+
+/* ------------------------------------------------------------------ */
+/* Dark-mode white fix — no white cards, tooltips, or legends in dark */
+/* mode, anywhere. Light mode keeps its white cards on purpose.        */
+/* ------------------------------------------------------------------ */
+.forge-dark [class*='bg-white'],
+.forge-dark [class*='bg-slate-50'],
+.forge-dark [class*='bg-slate-100'],
+.forge-dark [class*='bg-gray-50'],
+.forge-dark [class*='bg-gray-100'] {
+  background-color: #191C22 !important;
+  border-color: #2A2E36 !important;
+  color: #D8DCE3 !important;
+}
+.forge-dark .recharts-default-tooltip,
+.forge-dark .recharts-tooltip-wrapper {
+  background-color: #191C22 !important;
+  border-color: #2A2E36 !important;
+  color: #D8DCE3 !important;
+}
+.forge-dark .recharts-cartesian-axis-tick text { fill: #9299A5 !important; }
+.forge-dark .recharts-legend-item-text { fill: #D8DCE3 !important; color: #D8DCE3 !important; }
+.forge-dark .recharts-cartesian-grid line { stroke: #2A2E36 !important; }
+
+/* ------------------------------------------------------------------ */
+/* White-card root-cause fix + font bump, declutter pass.             */
+/* The old forge rule forced EVERY bg-cyan-/bg-indigo- to solid       */
+/* #F5F6F8 in dark mode, including translucent tints like             */
+/* bg-cyan-950/20 (selected model card) and bg-indigo-500/5 (RPM      */
+/* card). Those became solid white cards with light-grey text.       */
+/* These later rules restore translucent tints to a translucent       */
+/* platinum tint, and keep only SOLID cyan/indigo as platinum.        */
+/* ------------------------------------------------------------------ */
+.forge-dark [class*='bg-cyan-950/'],
+.forge-dark [class*='bg-cyan-900/'],
+.forge-dark [class*='bg-cyan-800/'],
+.forge-dark [class*='bg-indigo-500/'],
+.forge-dark [class*='bg-indigo-400/'],
+.forge-dark [class*='bg-indigo-600/'] {
+  background-color: rgba(216, 220, 227, 0.12) !important;
+}
+.forge-light [class*='bg-cyan-950/'],
+.forge-light [class*='bg-cyan-900/'],
+.forge-light [class*='bg-cyan-800/'],
+.forge-light [class*='bg-indigo-500/'],
+.forge-light [class*='bg-indigo-400/'],
+.forge-light [class*='bg-indigo-600/'] {
+  background-color: rgba(8, 9, 12, 0.07) !important;
+}
+
+/* Guard against the TWF-preset white-pill bug (28 Oct 2026):
+   a hover:bg-cyan-* class makes the class attribute contain 'bg-cyan-',
+   so the broad forge-dark platinum rule in index.css matched it even
+   when NOT hovering and forced the button white with light-grey text.
+   This later rule restores the intended dark slate for any element
+   whose only solid cyan class is a hover variant. */
+.forge-dark [class*='hover:bg-cyan-950'] {
+  background-color: rgba(30, 41, 59, 0.8) !important;
+}
+
+/* No solid white card in dark mode, ever: active tabs and selected   */
+/* cards must be dark with a platinum border, not a white block.      */
+.forge-dark .forge-tab-active {
+  background-color: #191C22 !important;
+  color: #F5F6F8 !important;
+  border-color: #2A2E36 !important;
+}
+
+/* Font bump, second pass: labels that were 10–12px are now 13–15px.   */
+.forge-dashboard .text-\[10px\] { font-size: 0.8125rem !important; /* 13px */ }
+.forge-dashboard .text-\[11px\] { font-size: 0.875rem !important; /* 14px */ }
+.forge-dashboard .text-xs { font-size: 0.9375rem !important; /* 15px */ }
+.forge-dashboard .forge-label { font-size: 13px !important; }
+
+/* Declutter: clear stage headings, one thing per stage. */
+.forge-stage { margin-top: 8px; }
+.forge-stage h2 { margin: 10px 0 6px; }
+.forge-stage p { color: var(--mu); max-width: 640px; margin: 0; font-size: 17px; }
+.forge-dig-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 0; }
+.forge-dig-tabs button { border: 1px solid var(--ln); background: transparent; color: var(--dim); border-radius: 999px; padding: 10px 18px; font-size: 15px; font-weight: 600; cursor: pointer; }
+.forge-dig-tabs button.forge-tab-active { background: #191C22; color: #F5F6F8; border-color: #2A2E36; }

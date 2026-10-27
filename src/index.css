@@ -1,0 +1,445 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+}
+
+@layer base {
+  body {
+    @apply bg-[#07090e] text-slate-100 antialiased selection:bg-cyan-500/30 selection:text-cyan-200;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+.theme-dark {
+  background: #07090e;
+  color: #f8fafc;
+}
+
+.theme-light {
+  background: #ffffff;
+  color: #0f172a;
+  color-scheme: light;
+}
+
+.theme-light,
+.theme-light .theme-light {
+  background: #ffffff;
+}
+
+.theme-light [class*='bg-slate-950'],
+.theme-light [class*='bg-slate-900'],
+.theme-light [class*='bg-slate-800'],
+.theme-light [class*='bg-slate-700'],
+.theme-light [class*='bg-slate-600'],
+.theme-light [class*='bg-[#07090e]'],
+.theme-light [class*='bg-[#090d16]'],
+.theme-light [class*='bg-[#06080d]'],
+.theme-light [class*='bg-slate-950/'],
+.theme-light [class*='bg-slate-900/'],
+.theme-light [class*='bg-slate-800/'],
+.theme-light [class*='bg-cyan-950'],
+.theme-light [class*='bg-indigo-950'],
+.theme-light [class*='bg-emerald-950'],
+.theme-light [class*='bg-rose-950'],
+.theme-light [class*='bg-amber-950'],
+.theme-light [class*='bg-violet-950'],
+.theme-light [class*='bg-purple-950'] {
+  background-color: #f8fafc !important;
+}
+
+.theme-light [class*='border-slate-'],
+.theme-light [class*='border-slate-800'],
+.theme-light [class*='border-slate-700'],
+.theme-light [class*='border-slate-600'] {
+  border-color: #dbeafe !important;
+}
+
+.theme-light [class*='text-slate-100'],
+.theme-light [class*='text-slate-200'],
+.theme-light [class*='text-slate-300'],
+.theme-light [class*='text-slate-400'],
+.theme-light [class*='text-slate-500'],
+.theme-light [class*='text-slate-600'] {
+  color: #0f172a !important;
+}
+
+.theme-light [class*='text-white'] {
+  color: #0f172a !important;
+}
+
+.theme-light [class*='bg-white'] {
+  background-color: #f8fafc !important;
+}
+
+.theme-light [class*='bg-cyan-500'],
+.theme-light [class*='bg-cyan-600'],
+.theme-light [class*='bg-cyan-400'],
+.theme-light [class*='bg-indigo-500'],
+.theme-light [class*='bg-indigo-600'] {
+  background-color: #dbeafe !important;
+}
+
+.theme-light [class*='text-cyan-'],
+.theme-light [class*='text-indigo-'] {
+  color: #0369a1 !important;
+}
+
+.theme-light [class*='bg-emerald-500'],
+.theme-light [class*='bg-emerald-600'] {
+  background-color: #dcfce7 !important;
+}
+
+.theme-light [class*='text-emerald-'] {
+  color: #047857 !important;
+}
+
+.theme-light [class*='bg-rose-500'],
+.theme-light [class*='bg-rose-600'] {
+  background-color: #ffe4e6 !important;
+}
+
+.theme-light [class*='text-rose-'] {
+  color: #be123c !important;
+}
+
+.theme-light [class*='bg-amber-500'],
+.theme-light [class*='bg-amber-600'] {
+  background-color: #fef3c7 !important;
+}
+
+.theme-light [class*='text-amber-'] {
+  color: #b45309 !important;
+}
+
+.theme-light [class*='shadow-'] {
+  box-shadow: none !important;
+}
+
+.theme-light header,
+.theme-light footer,
+.theme-light main,
+.theme-light section,
+.theme-light div,
+.theme-light table,
+.theme-light tr,
+.theme-light td,
+.theme-light th,
+.theme-light button,
+.theme-light input {
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+/* AI Markdown Typography Styles */
+.markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4 {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin-top: 0.75rem;
+  margin-bottom: 0.35rem;
+}
+.markdown-body h1 { font-size: 1.1rem; color: #38bdf8; border-bottom: 1px solid #334155; padding-bottom: 0.25rem; }
+.markdown-body h2 { font-size: 1.0rem; color: #38bdf8; }
+.markdown-body h3 { font-size: 0.9rem; color: #7dd3fc; }
+.markdown-body h4 { font-size: 0.82rem; color: #93c5fd; }
+.markdown-body p {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+.markdown-body ul {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 0.5rem;
+  space-y: 0.25rem;
+}
+.markdown-body ol {
+  list-style-type: decimal;
+  padding-left: 1.25rem;
+  margin-bottom: 0.5rem;
+  space-y: 0.25rem;
+}
+.markdown-body li {
+  margin-bottom: 0.25rem;
+  line-height: 1.5;
+}
+.markdown-body strong {
+  color: #e2e8f0;
+  font-weight: 700;
+}
+.markdown-body blockquote {
+  border-left: 3px solid #0284c7;
+  padding-left: 0.75rem;
+  margin: 0.5rem 0;
+  color: #94a3b8;
+  font-style: italic;
+  background: rgba(14, 165, 233, 0.05);
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-radius: 0 0.375rem 0.375rem 0;
+}
+.markdown-body hr {
+  border-color: #334155;
+  margin: 0.75rem 0;
+}
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0.5rem 0;
+  font-size: 0.75rem;
+}
+.markdown-body th {
+  background: #0f172a;
+  color: #38bdf8;
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+  border: 1px solid #1e293b;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+}
+.markdown-body td {
+  padding: 0.35rem 0.6rem;
+  border: 1px solid #1e293b;
+  color: #cbd5e1;
+}
+.markdown-body tr:nth-child(even) td {
+  background: rgba(15, 23, 42, 0.4);
+}
+.markdown-body code {
+  background: #0f172a;
+  color: #38bdf8;
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.25rem;
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 0.85em;
+  border: 1px solid #1e293b;
+}
+.markdown-body pre {
+  background: #090d16;
+  border: 1px solid #1e293b;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+}
+.markdown-body pre code {
+  background: transparent;
+  padding: 0;
+  border: none;
+  color: #e2e8f0;
+}
+
+/* ------------------------------------------------------------------ */
+/* InsightForge design system — Obsidian + Platinum (landing language) */
+/* Applied by App via .forge-light / .forge-dark on the root div.      */
+/* This does NOT change any component logic, data, or API calls.      */
+/* It maps the old slate/cyan dashboard utilities onto the landing    */
+/* palette, and sets the landing fonts. Semantic risk colours         */
+/* (rose / amber / emerald / violet) are deliberately left alone,     */
+/* so a failure still reads as a failure.                             */
+/* ------------------------------------------------------------------ */
+
+.forge-light, .forge-dark {
+  font-family: "Inter Tight", system-ui, sans-serif;
+}
+.forge-light h1, .forge-dark h1,
+.forge-light h2, .forge-dark h2 {
+  font-family: "Instrument Serif", serif;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+/* Safety net: the dashboard Header title must NEVER take the landing
+   hero size (clamp 46–96px) again, even if landing CSS is ever loaded
+   alongside the dashboard. Header h1 is always small, by rule. */
+.forge-light header h1, .forge-dark header h1 {
+  font-size: 1rem !important;
+  line-height: 1.25 !important;
+  margin: 0 !important;
+}
+@media (min-width: 640px) {
+  .forge-light header h1, .forge-dark header h1 {
+    font-size: 1.125rem !important;
+  }
+}
+.forge-light .font-mono, .forge-dark .font-mono,
+.forge-light [class*='font-mono'], .forge-dark [class*='font-mono'] {
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* Light: bg #F5F6F8, card #fff, line #D8DCE3, text #2A2F38, head #08090C, muted #555C68 */
+.forge-light { background: #F5F6F8; color: #2A2F38; color-scheme: light; }
+.forge-light [class*='bg-slate-950'],
+.forge-light [class*='bg-slate-900'],
+.forge-light [class*='bg-[#07090e]'],
+.forge-light [class*='bg-[#090d16]'],
+.forge-light [class*='bg-[#06080d]'],
+.forge-light [class*='bg-slate-950/'],
+.forge-light [class*='bg-slate-900/'],
+.forge-light [class*='bg-slate-800'] {
+  background-color: #ffffff !important;
+}
+.forge-light [class*='bg-slate-700'],
+.forge-light [class*='bg-slate-600'] {
+  background-color: #F5F6F8 !important;
+}
+.forge-light [class*='border-slate-'] {
+  border-color: #D8DCE3 !important;
+}
+.forge-light [class*='text-slate-100'],
+.forge-light [class*='text-slate-200'],
+.forge-light [class*='text-slate-300'] {
+  color: #08090C !important;
+}
+.forge-light [class*='text-slate-400'],
+.forge-light [class*='text-slate-500'],
+.forge-light [class*='text-slate-600'] {
+  color: #555C68 !important;
+}
+.forge-light [class*='text-slate-950'] {
+  color: #F5F6F8 !important;
+}
+.forge-light [class*='text-white'] {
+  color: #08090C !important;
+}
+
+/* Dark: bg #08090C, card #191C22, line #2A2E36, text #D8DCE3, head #F5F6F8, muted #9299A5 */
+.forge-dark { background: #08090C; color: #D8DCE3; color-scheme: dark; }
+.forge-dark [class*='bg-slate-950'],
+.forge-dark [class*='bg-slate-900'],
+.forge-dark [class*='bg-[#07090e]'],
+.forge-dark [class*='bg-[#090d16]'],
+.forge-dark [class*='bg-[#06080d]'],
+.forge-dark [class*='bg-slate-950/'],
+.forge-dark [class*='bg-slate-900/'] {
+  background-color: #191C22 !important;
+}
+.forge-dark [class*='bg-slate-800'] {
+  background-color: #191C22 !important;
+}
+.forge-dark [class*='bg-slate-700'],
+.forge-dark [class*='bg-slate-600'] {
+  background-color: #2A2E36 !important;
+}
+.forge-dark [class*='border-slate-'] {
+  border-color: #2A2E36 !important;
+}
+.forge-dark [class*='text-slate-100'],
+.forge-dark [class*='text-slate-200'],
+.forge-dark [class*='text-slate-300'] {
+  color: #F5F6F8 !important;
+}
+.forge-dark [class*='text-slate-400'],
+.forge-dark [class*='text-slate-500'],
+.forge-dark [class*='text-slate-600'] {
+  color: #9299A5 !important;
+}
+.forge-dark [class*='text-slate-950'] {
+  color: #08090C !important;
+}
+.forge-dark [class*='text-white'] {
+  color: #F5F6F8 !important;
+}
+
+/* Brand accent: old cyan/indigo -> Obsidian in light, Platinum in dark.
+   This is what removes the cyan dashboard look without touching logic. */
+.forge-light [class*='bg-cyan-'],
+.forge-light [class*='bg-indigo-'] {
+  background-color: #08090C !important;
+}
+.forge-dark [class*='bg-cyan-'],
+.forge-dark [class*='bg-indigo-'] {
+  background-color: #F5F6F8 !important;
+}
+.forge-light [class*='text-cyan-'],
+.forge-light [class*='text-indigo-'] {
+  color: #08090C !important;
+}
+.forge-dark [class*='text-cyan-'],
+.forge-dark [class*='text-indigo-'] {
+  color: #D8DCE3 !important;
+}
+.forge-light [class*='border-cyan-'],
+.forge-light [class*='border-indigo-'] {
+  border-color: #D8DCE3 !important;
+}
+.forge-dark [class*='border-cyan-'],
+.forge-dark [class*='border-indigo-'] {
+  border-color: #2A2E36 !important;
+}
+.forge-light [class*='bg-cyan-500/'],
+.forge-dark [class*='bg-cyan-500/'] {
+  background-color: rgba(8, 9, 12, 0.07) !important;
+}
+.forge-dark [class*='bg-cyan-500/'] {
+  background-color: rgba(216, 220, 227, 0.12) !important;
+}
+
+/* Unmissable scrollbar — second fix (28 Oct 2026, user screenshot):
+   the first fix (12px, medium-grey #9299A5 thumb on #191C22 track)
+   was still not clearly visible at normal screen scale, because the
+   track blended into the near-black page (#07090e) and the thumb was
+   only medium grey. Now: 16px wide, a track that is itself clearly
+   distinct from the page (#2A2E36 in dark, with a bright edge line),
+   a solid platinum #F5F6F8 thumb (12px bright core after its border),
+   and scrollbar-gutter: stable so the gutter is always reserved as a
+   visible column, not an overlay that appears only while scrolling.
+   Applies to the page scrollbar and inner scroll containers. */
+html {
+  scrollbar-color: #F5F6F8 #2A2E36; /* Firefox: thumb, track */
+  scrollbar-width: auto;
+  scrollbar-gutter: stable;
+}
+html[data-theme='light'] {
+  scrollbar-color: #08090C #D8DCE3;
+}
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+::-webkit-scrollbar-track {
+  background: #2A2E36;
+  border-left: 1px solid #F5F6F8;
+}
+::-webkit-scrollbar-thumb {
+  background: #F5F6F8;
+  border-radius: 8px;
+  border: 2px solid #2A2E36;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #FFFFFF;
+}
+::-webkit-scrollbar-thumb:active {
+  background: #FFFFFF;
+}
+html[data-theme='light'] ::-webkit-scrollbar-track {
+  background: #D8DCE3;
+  border-left: 1px solid #08090C;
+}
+html[data-theme='light'] ::-webkit-scrollbar-thumb {
+  background: #08090C;
+  border: 2px solid #D8DCE3;
+}
+html[data-theme='light'] ::-webkit-scrollbar-thumb:hover {
+  background: #2A2E36;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.05); }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(1000%); }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.scanline-effect {
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(6, 182, 212, 0.03) 51%
+  );
+  background-size: 100% 4px;
+}

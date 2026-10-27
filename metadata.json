@@ -1,0 +1,6 @@
+{
+  "name": "Field Return Failure Mining Platform",
+  "description": "Industrial predictive maintenance and field return failure intelligence platform featuring CSV dataset ingestion, Gemini AI root cause chatbot sidebar, real-time machine telemetry, XGBoost/Random Forest failure mode inference, and scroll-reactive graphics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
